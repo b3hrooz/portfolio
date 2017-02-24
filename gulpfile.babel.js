@@ -153,7 +153,7 @@ gulp.task('html', () => {
 });
 
 // Clean output directory
-gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/{.git,.git/**,README.md}'], {dot: true}));
+gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
 
 // Watch files for changes & reload
 gulp.task('serve', ['scripts', 'styles'], () => {
@@ -254,7 +254,7 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
 
 gulp.task('deploy', ['default'], () => {
   return gulp.src('dist/**/*')
-    .pipe($.ghPages());
+    .pipe($.ghPages({remoteUrl:"https://github.com/b3hrooz/b3hrooz.github.io.git",branch:"master"}));
 });
 // Load custom tasks from the `tasks` directory
 // Run: `npm install --save-dev require-dir` from the command-line
