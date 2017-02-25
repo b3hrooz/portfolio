@@ -68,14 +68,21 @@ gulp.task('copy', () =>
     .pipe($.size({title: 'copy'}))
 );
 
-// Copy font files
-gulp.task('copyFonts', () => {
+// Copy font files to dist
+gulp.task('fonts_dist', () => {
   gulp.src([
-    'app/fonts/**/*.{ttf,woff,eof,svg}',
-    'node_modules/mdi/fonts/**/*.{ttf,woff,eof,svg}'
+    'app/fonts/**/*.{eot,svg,ttf,woff,woff2}',
   ])
     .pipe(gulp.dest('dist/fonts'));
 });
+
+gulp.task('fonts', () => {
+  gulp.src([
+    'node_modules/mdi/fonts/**/*.{eot,svg,ttf,woff,woff2}'
+  ])
+    .pipe(gulp.dest('app/fonts'));
+});
+
 
 // Compile and automatically prefix stylesheets
 gulp.task('styles', () => {
@@ -165,7 +172,7 @@ gulp.task('html', () => {
 gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
 
 // Watch files for changes & reload
-gulp.task('serve', ['scripts', 'styles'], () => {
+gulp.task('serve', ['scripts', 'styles','fonts'], () => {
   browserSync({
     notify: false,
     // Customize the Browsersync console logging prefix
@@ -184,6 +191,8 @@ gulp.task('serve', ['scripts', 'styles'], () => {
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['lint', 'scripts', reload]);
   gulp.watch(['app/images/**/*'], reload);
+  gulp.watch(['app/fonts/**/*'], reload);
+
 });
 
 // Build and serve the output from the dist build
@@ -206,7 +215,7 @@ gulp.task('serve:dist', ['default'], () =>
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy','copyFonts'],
+    ['lint', 'html', 'scripts', 'images','fonts', 'copy','fonts_dist'],
     'generate-service-worker',
     cb
   )
