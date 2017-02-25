@@ -1,0 +1,46 @@
+@import "../../node_modules/mdi/scss/materialdesignicons";
+
+
+.mdl-layout--fullscreen-background {
+  background: url('../images/background1920px.jpeg') center / cover;
+}
+.mdl-layout--fullscreen-background .mdl-layout__header,
+.mdl-layout--fullscreen-background .mdl-layout__drawer-button,
+.mdl-layout--fullscreen-background .mdl-navigation__link
+{
+  color: white;
+}
+
+@media screen and (max-width: 1024px) {
+  .mdl-layout__header {
+    display: flex;
+  }
+}
+  .mdl-layout__header-row {
+    height: 56px;
+    padding: 0;
+    justify-content: center;
+  }
+
+.is-screen-small .card--wide.mdl-card {
+  width: 70vw;
+}
+
+.card--wide.mdl-card {
+  width: 50vw;
+  max-width:720px;
+}
+
+.card--wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('../images/profile-picture.jpg') center / cover;
+}
+.card--wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.card--centered
+{
+  margin:auto;
+}
