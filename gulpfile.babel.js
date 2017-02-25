@@ -68,6 +68,15 @@ gulp.task('copy', () =>
     .pipe($.size({title: 'copy'}))
 );
 
+// Copy font files
+gulp.task('copyFonts', () => {
+  gulp.src([
+    'app/fonts/**/*.{ttf,woff,eof,svg}',
+    'node_modules/mdi/fonts/**/*.{ttf,woff,eof,svg}'
+  ])
+    .pipe(gulp.dest('dist/fonts'));
+});
+
 // Compile and automatically prefix stylesheets
 gulp.task('styles', () => {
   const AUTOPREFIXER_BROWSERS = [
@@ -197,7 +206,7 @@ gulp.task('serve:dist', ['default'], () =>
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy'],
+    ['lint', 'html', 'scripts', 'images', 'copy','copyFonts'],
     'generate-service-worker',
     cb
   )
