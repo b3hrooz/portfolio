@@ -11,6 +11,11 @@
   color: white;
 }
 
+
+.mdl-navigation__link--disabled{
+  text-decoration: line-through;
+}
+
 @media screen and (max-width: 1024px) {
   .mdl-layout__header {
     display: flex;
